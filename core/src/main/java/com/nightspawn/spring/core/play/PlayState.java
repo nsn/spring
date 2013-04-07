@@ -21,9 +21,9 @@ public class PlayState extends GameState {
 		GroupNode<Spatial> root = new GroupNode<Spatial>();
 
 		player = new Player();
-		root.addChild(player);
+		// root.addChild(player);
 
-		stage = new Stage();
+		stage = new Stage(player);
 		root.addChild(stage);
 
 		scene = new Scene(root);

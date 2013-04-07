@@ -20,7 +20,7 @@ public class Player extends GroupNode<Sprite<Image>> implements Listener {
 	private static final int TORSO_BOB_MS = 150;
 	private static final int TORSO_BOB_PIXELS = 1;
 	private static final int JUMP_FRAMES = 4;
-	private static final int JUMP_MS_PER_FRAME = 100;
+	private static final int JUMP_MS_PER_FRAME = 200;
 	private static final Dimension legDimension = new Dimension(32f, 20f);
 	private static final Vector legOffset = new Vector(0.0f, 11.0f);
 	private static final Dimension torsoDimension = new Dimension(32f, 18f);
@@ -37,6 +37,7 @@ public class Player extends GroupNode<Sprite<Image>> implements Listener {
 	private Sprite<Image> torso;
 	private Sprite<Image> jump;
 	private boolean falling = true;
+	private Vector acceleration = new Vector();
 
 	public Player() {
 		PlayN.keyboard().setListener(this);
@@ -58,14 +59,8 @@ public class Player extends GroupNode<Sprite<Image>> implements Listener {
 
 		translate(new Vector(100, 100));
 
-		setDrawBoundary(true);
+		// setDrawBoundary(true);
 		setBoundaryColor(Color.rgb(255, 0, 0));
-	}
-
-	public void land() {
-		if (falling) {
-			falling = false;
-		}
 	}
 
 	@Override
@@ -110,12 +105,27 @@ public class Player extends GroupNode<Sprite<Image>> implements Listener {
 			torso.setRendered(true);
 			legs.setRendered(true);
 		}
+		// movement
+		translate(acceleration);
+		float diffY = Stage.FLOOR_Y - getWorldBound().maxY();
+		if (diffY <= 0) {
+			falling = false;
+			translate(new Vector(0.0f, diffY));
+			acceleration = new Vector();
+		} else {
+			falling = true;
+			acceleration.y += Stage.GRAVITY / delta;
+		}
 	}
 
 	@Override
 	public void onKeyUp(Event event) {
 		switch (event.key()) {
 		case UP:
+			if (!falling) {
+				falling = true;
+				acceleration.y -= 100;
+			}
 			break;
 		default:
 			break;

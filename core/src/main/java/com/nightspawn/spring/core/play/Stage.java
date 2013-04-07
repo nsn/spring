@@ -11,8 +11,8 @@ import com.nightspawn.spring.core.Spring;
 
 public class Stage extends GroupNode<Spatial> {
 	private static final int FLOOR_HEIGHT = 100;
-	private static final int FLOOR_Y = Spring.SCREENHEIGHT - FLOOR_HEIGHT;
-	private static final float GRAVITY = 75.0f;
+	public static final int FLOOR_Y = Spring.SCREENHEIGHT - FLOOR_HEIGHT;
+	public static final float GRAVITY = 35.0f;
 	private Area floor;
 	private Player player;
 
@@ -32,9 +32,9 @@ public class Stage extends GroupNode<Spatial> {
 		super.update(deltams);
 		// player
 		if (player.getWorldBound().maxY() >= FLOOR_Y) {
-			player.land();
+			// player.land();
 		} else {
-			player.translate(new Vector(0.0f, GRAVITY / deltams));
+			// player.translate(new Vector(0.0f, GRAVITY / deltams));
 		}
 	}
 }

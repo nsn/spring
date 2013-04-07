@@ -12,13 +12,20 @@ import com.nightspawn.spring.core.PlayNRenderer;
 
 public class PlayState extends GameState {
 	private Player player;
+	private Stage stage;
 	private Scene scene;
 
 	public PlayState(PlayNRenderer renderer) {
 		super(GameState.STATE.PLAY, renderer);
-		player = new Player();
+
 		GroupNode<Spatial> root = new GroupNode<Spatial>();
+
+		player = new Player();
 		root.addChild(player);
+
+		stage = new Stage();
+		root.addChild(stage);
+
 		scene = new Scene(root);
 	}
 

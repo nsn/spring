@@ -22,7 +22,7 @@ public class Spring implements Game {
 					@Override
 					public void render(Surface surface) {
 						currentState.paint(surface, new Rectangle(0.0f, 0.0f,
-								SCREENHEIGHT, SCREENHEIGHT), frameAlpha);
+								SCREENWIDTH, SCREENHEIGHT), frameAlpha);
 					}
 				});
 		graphics().rootLayer().add(gameLayer);
